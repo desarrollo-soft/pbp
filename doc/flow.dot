@@ -1,0 +1,43 @@
+digraph G {
+	node [ fontname=Arial, fontcolor=blue, fontsize=11];
+	edge [ fontname=Helvetica, fontcolor=red, fontsize=10 ];
+	"Create NPC" [shape=diamond]
+	"Invite players" [shape=diamond]
+	"Only Master" [shape=diamond]
+	Home
+	Home -> Login
+	Home -> "Sign up"
+	Login -> "Sign up"
+	"Sign up" -> Login
+	Login -> Campaigns
+	"Sign up" -> Campaigns
+	Campaigns -> "Create Campaign"
+	"Create Campaign" -> "Invite players"
+	"Invite players" -> Stream
+	"Create Campaign" -> "Create NPC"
+	"Create NPC" -> Stream
+	Stream -> "Create NPC"
+	Campaigns -> "View Campaign"
+	Stream -> "Invite players"
+	"View Campaign" -> Stream
+	"View Campaign" -> "Create Character"
+	"Create Character" -> Stream
+	filters[shape=box]
+	author[shape=box]
+	date[shape=box]
+	type[shape=box]
+	"out of the game"[shape=box]
+	private[shape=box]
+	narrative[shape=box]
+	talk[shape=box]
+	roll[shape=box]
+	Stream -> filters
+	filters -> author
+	filters -> date
+	filters -> type
+	type -> "out of the game"
+	type -> private
+	type -> narrative
+	type -> talk
+	type -> roll
+}
