@@ -1,0 +1,7 @@
+--- 
+:test: shoulda
+:mock: none
+:script: prototype
+:orm: datamapper
+:stylesheet: less
+:renderer: erubis
