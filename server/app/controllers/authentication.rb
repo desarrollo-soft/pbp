@@ -48,7 +48,7 @@ Pbp.controllers :authentication do
     @user.username = params[:username]
     @user.setPassword params[:password]
     if @user.save
-      session[:user] = User.get(@user[:id])
+      session[:user] = User.get(@user[:id]) # can't store the @user we had before! The data is incomplete, crashes
       redirect url(:home, :index)
     else
       render 'authentication/signup'
