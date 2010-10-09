@@ -18,14 +18,21 @@ Pbp.controllers :authentication do
   #   "Hello world!"
   # end
 
+  enable :sessions
+
   get :login do
-    render 'authentication/login'
+    if (session[:user] && session[:user][:id] > 0)
+      redirect url(:home, :index)
+    else
+      render 'authentication/login'
+    end
   end
 
   post :login do
     @user = User.authenticate(params[:username], params[:password])
 
     if @user
+      session[:user] = @user
       redirect url(:home, :index)
     else
       render 'authentication/login'
@@ -48,6 +55,8 @@ Pbp.controllers :authentication do
   end
 
   get :logout do
+    session[:user] = nil
+    redirect url(:authentication, :login)
   end
 
 end

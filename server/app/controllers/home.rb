@@ -18,8 +18,14 @@ Pbp.controllers :home do
   #   "Hello world!"
   # end
 
+  enable :sessions
+
   get :index do
-    render 'home/index'
+    if (session[:user] && session[:user][:id] > 0)
+      render 'home/index'
+    else
+      redirect url(:authentication, :login);
+    end
   end
 
 end

@@ -1,1 +1,1 @@
-logout
+<a href="http://localhost:3000/authentication/logout">logout</a>
