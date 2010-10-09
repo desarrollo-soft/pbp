@@ -1,7 +1,7 @@
 --- 
-:test: shoulda
+:test: rspec
 :mock: none
 :script: prototype
 :orm: datamapper
-:stylesheet: less
-:renderer: erubis
+:stylesheet: sass
+:renderer: haml

@@ -7,10 +7,8 @@ class User
   property :id, Serial
   property :username, String
   property :password, String
+  property :email, String
 
-  ##
-  # This method is for authentication purpose
-  #
   def self.authenticate(username, password)
     hashed_password = Digest::SHA1.hexdigest(password)
     account = first(:conditions => { :username => username }) if username.present?

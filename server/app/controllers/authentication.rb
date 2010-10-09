@@ -48,6 +48,7 @@ Pbp.controllers :authentication do
     @user.username = params[:username]
     @user.setPassword params[:password]
     if @user.save
+      session[:user] = @user
       redirect url(:home, :index)
     else
       render 'authentication/signup'

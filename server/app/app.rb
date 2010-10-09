@@ -1,5 +1,5 @@
 class Pbp < Padrino::Application
-  register LessInitializer
+  register SassInitializer
   register Padrino::Mailer
   register Padrino::Helpers
 
