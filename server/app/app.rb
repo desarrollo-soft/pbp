@@ -5,7 +5,7 @@ class Pbp < Padrino::Application
 
   enable :sessions
 
-  set :haml, {:format => :html5 } # default Haml format is :xhtml
+  set :haml, {:format => :html5, :escape_html => true} # default Haml format is :xhtml
 
   ##
   # Application configuration options
