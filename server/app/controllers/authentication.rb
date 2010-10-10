@@ -51,6 +51,7 @@ Pbp.controllers :authentication do
     @user.username = params[:username]
     @user.email = params[:email]
     @user.new_password = params[:password]
+    @user.new_password_confirmation = params[:password_confirmation]
     if @user.save
       session[:user] = User.get(@user[:id]) # can't store the @user we had before! The data is incomplete, crashes
       redirect url(:home, :index)
