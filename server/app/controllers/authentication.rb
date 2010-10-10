@@ -48,6 +48,7 @@ Pbp.controllers :authentication do
   post :signup do
     @user = User.new
     @user.username = params[:username]
+    @user.email = params[:email]
     @user.setPassword params[:password]
     if @user.save
       session[:user] = User.get(@user[:id]) # can't store the @user we had before! The data is incomplete, crashes
