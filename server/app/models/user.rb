@@ -37,6 +37,7 @@ class User
       return if self.new_password.blank?
       self.password = Digest::SHA1.hexdigest(self.new_password) if new_record?
       self.new_password = nil
+      self.new_password_confirmation = nil
     end
 
     def password_required
