@@ -1,10 +1,16 @@
 %form{:action => "#", :method => "post"}
+  -@user.errors[:username].each do |e|
+    %p= e
   %label{:for => "username"} Username
   %input{:type => "text", :name => "username", :id => "username"}
   %br
+  -@user.errors[:email].each do |e|
+    %p= e
   %label{:for => "email"} Email
   %input{:type => "email", :name => "email", :id => "email"}
   %br
+  -@user.errors[:new_password].each do |e|
+    %p= e
   %label{:for => "password"} Password
   %input{:type => "password", :name => "password", :id => "password"}
   %br
