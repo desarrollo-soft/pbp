@@ -3,6 +3,10 @@ class Pbp < Padrino::Application
   register Padrino::Mailer
   register Padrino::Helpers
 
+  enable :sessions
+
+  set :haml, {:format => :html5 } # default Haml format is :xhtml
+
   ##
   # Application configuration options
   #

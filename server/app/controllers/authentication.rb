@@ -18,8 +18,6 @@ Pbp.controllers :authentication do
   #   "Hello world!"
   # end
 
-  enable :sessions
-
   get :login do
     if (session[:user] && session[:user][:id] > 0)
       redirect url(:home, :index)
@@ -40,7 +38,11 @@ Pbp.controllers :authentication do
   end
 
   get :signup do
-    render 'authentication/signup'
+    if (session[:user] && session[:user][:id] > 0)
+      redirect url(:home, :index)
+    else
+      render 'authentication/signup'
+    end
   end
 
   post :signup do

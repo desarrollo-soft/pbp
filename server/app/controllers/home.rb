@@ -18,8 +18,6 @@ Pbp.controllers :home do
   #   "Hello world!"
   # end
 
-  enable :sessions
-
   get :index do
     if (session[:user] && session[:user][:id] > 0)
       render 'home/index'
