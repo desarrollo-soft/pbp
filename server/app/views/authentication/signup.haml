@@ -1,17 +1,18 @@
+=partial "doctype"
 %form{:action => "#", :method => "post"}
   -@user.errors[:username].each do |e|
     %p= e
   %label{:for => "username"} Username
-  %input{:type => "text", :name => "username", :id => "username"}
+  %input{:type => "text", :name => "username", :id => "username", :required => "required"}
   %br
   -@user.errors[:email].each do |e|
     %p= e
   %label{:for => "email"} Email
-  %input{:type => "email", :name => "email", :id => "email"}
+  %input{:type => "email", :name => "email", :id => "email", :placeholder => "example@example.org", :required => "required"}
   %br
   -@user.errors[:new_password].each do |e|
     %p= e
   %label{:for => "password"} Password
-  %input{:type => "password", :name => "password", :id => "password"}
+  %input{:type => "password", :name => "password", :id => "password", :required => "required"}
   %br
   %input{:type => "submit", :value => "signup"}
