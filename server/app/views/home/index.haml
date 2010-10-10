@@ -3,6 +3,7 @@
   Welcome
   -if @user
     =@user.username
+    != link_to 'New Campaign', url(:campaign, :new)
     != link_to 'Logout', url(:authentication, :logout)
   -else
     %br
