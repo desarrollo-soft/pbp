@@ -63,7 +63,7 @@ Pbp.controllers :authentication do
 
   get :logout do
     session[:user] = nil
-    redirect url(:authentication, :login)
+    redirect url(:home, :index)
   end
 
 end

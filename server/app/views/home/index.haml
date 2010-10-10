@@ -1,5 +1,11 @@
 !=partial "doctype"
 %p
   Welcome
-  =@user.username
-!= link_to 'Logout', url(:authentication, :logout)
+  -if @user
+    =@user.username
+    != link_to 'Logout', url(:authentication, :logout)
+  -else
+    %br
+    != link_to 'Login', url(:authentication, :login)
+    %br
+    != link_to 'Sign up', url(:authentication, :signup)

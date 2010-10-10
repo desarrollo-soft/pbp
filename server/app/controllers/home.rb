@@ -21,10 +21,8 @@ Pbp.controllers :home do
   get :index do
     if (session[:user] && session[:user][:id] > 0)
       @user = session[:user]
-      render 'home/index'
-    else
-      redirect url(:authentication, :login);
     end
+    render 'home/index'
   end
 
 end
