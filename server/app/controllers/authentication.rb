@@ -33,6 +33,7 @@ Pbp.controllers :authentication do
       session[:user] = @user
       redirect url(:home, :index)
     else
+      @login_failed = true;
       render 'authentication/login'
     end
   end

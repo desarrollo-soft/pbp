@@ -1,3 +1,8 @@
+=partial "doctype"
+-if @login_failed
+  ="Invalid username or password"
+-else
+  ="Please login"
 %form{:action => "#", :method => "post"}
   %label{:for => "username"} Username
   %input{:type => "text", :name => "username", :id => "username"}
