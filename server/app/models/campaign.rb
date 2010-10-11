@@ -50,8 +50,13 @@ class Campaign
 
     user = User.first(:email => email)
     if user == nil
-      #TODO: send some mail inviting him
-      return true
+      invite = CampaignInviteEmail.new
+      invite.campaign_id = self[:id]
+      invite.email = email
+      if invite.save
+        #TODO: send some mail inviting him
+        return true
+      end
     else
       inviteUser user
     end
