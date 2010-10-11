@@ -40,6 +40,59 @@ Pbp.controllers :campaign do
     render 'campaign/list'
   end
 
+  get :invite, :with => :id do
+    @campaign = Campaign.get(params[:id])
+    if (@campaign == nil)
+      redirect url(:campaign, :list)
+    else
+      render 'campaign/invite'
+    end
+  end
+
+  post :invite, :with => :id do
+    @campaign = Campaign.get(params[:id])
+    if (@campaign == nil)
+      redirect url(:campaign, :list)
+    else
+      if params[:username_or_email].include? "@"
+        email = params[:username_or_email]
+        #TODO: validate email
+        user = User.first(:email => email)
+        if user == nil
+          #TODO: send some mail inviting him
+        else
+          if @campaign.inviteUser user
+            #TODO: set some flash to indicate the invitation was sent
+            redirect url(:campaign, :list)
+          else
+            #TODO: set some error message
+            render 'campaign/invite'
+          end
+        end
+      else
+        username = params[:username_or_email]
+        if username == session[:user].username
+          #TODO: set some error message
+          return render 'campaign/invite'
+        end
+
+        user = User.first(:username => username)
+        if user == nil
+          #TODO: set some error message
+          render 'campaign/invite'
+        else
+          if @campaign.inviteUser user
+            #TODO: set some flash to indicate the invitation was sent
+            redirect url(:campaign, :list)
+          else
+            #TODO: set some error message
+            render 'campaign/invite'
+          end
+        end
+      end
+    end
+  end
+
   get :view, :with => :id do
   end
 

@@ -1,0 +1,6 @@
+!!! 5
+%form{:action => url(:campaign, :invite, @campaign[:id]), :method => "post"}
+  %label{:for => "username_of_email"} Username or email
+  %input{:type => "text", :name => "username_or_email", :id => "username_or_email", :autofocus => true}
+  %br
+  %input{:type => "submit", :value => "Invite"}
