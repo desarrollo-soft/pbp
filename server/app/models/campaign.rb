@@ -43,6 +43,11 @@ class Campaign
 
   def inviteEmail email
     #TODO: validate email
+    if !email.match /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i #TODO: avoid duplicate regex
+      errors.push "Invalid email format" #TODO: i18n
+      return false;
+    end
+
     user = User.first(:email => email)
     if user == nil
       #TODO: send some mail inviting him
