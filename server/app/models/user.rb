@@ -5,7 +5,7 @@ class User
 
   validates_presence_of     :username
   validates_uniqueness_of   :username,    :case_sensitive => false
-  validates_format_of       :username,    :with => /\A(?:[-a-z0-9]+\.)\Z/i
+  validates_format_of       :username,    :with => /\A[a-z0-9\.]+\Z/i
   validates_presence_of     :email
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email,    :case_sensitive => false
