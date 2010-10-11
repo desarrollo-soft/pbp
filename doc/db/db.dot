@@ -1,0 +1,128 @@
+digraph G {
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+
+        node [
+                fontname = "Bitstream Vera Sans"
+                fontsize = 8
+                shape = "record"
+        ]
+
+        edge [
+                fontname = "Bitstream Vera Sans"
+                fontsize = 8
+        ]
+
+        User [
+                label = "{user|\
+username : string\l\
+password : string\l\
+email : string\l\
+}"
+        ]
+
+	Campaign [
+		label = "{campaign|\
+master_user_id : int\l\
+name : string\l\
+}"
+	]
+
+	edge [ label = "master_user" ]
+	Campaign -> User
+
+	Character [
+		label = "{character|\
+campaign_id : int\l\
+user_id : int \l\
+name : string\l\
+bio : text\l\
+stats: text\l\
+}"
+	]
+
+	edge [ label = "character_user" ]
+	Character -> User
+	edge [ label = "character_campaign" ]
+	Character -> Campaign
+
+	Stream [
+		label = "{stream|\
+campaign_id : int\l\
+user_id : int \l\
+timestamp : int \l\
+type : string\l\
+}"
+	]
+
+	edge [ label = "stream_user" ]
+	Stream -> User
+	edge [ label = "stream_campaign" ]
+	Stream -> Campaign
+
+	StreamRoll [
+		label = "{stream_roll|\
+stream_id : int\l\
+explanation : string\l\
+roll_type : string\l\
+result : int\l\
+public : bool\l\
+}"
+	]
+	edge [ label = "stream" ]
+	StreamRoll -> Stream
+
+	StreamTalk [
+		label = "{stream_talk|\
+stream_id : int\l\
+character_id : int\l\
+target_character_id : int\l\
+text : text\l\
+}"
+	]
+
+	edge [ label = "stream" ]
+	StreamTalk -> Stream
+
+	edge [ label = "stream_talk_character" ]
+	StreamTalk -> Character
+
+	edge [ label = "stream_talk_target_character" ]
+	StreamTalk -> Character
+
+	StreamNarrative [
+		label = "{stream_narrative|\
+stream_id : int \l\
+text : text\l\
+}"
+	]
+
+	edge [ label = "stream" ]
+	StreamNarrative -> Stream
+
+	StreamOutOfTheGame [
+		label = "{stream_ootg|\
+stream_id : int\l\
+text : text\l\
+}"
+	]
+
+	edge [ label = "stream" ]
+	StreamOutOfTheGame -> Stream
+
+	StreamPrivate [
+		label = "{stream_private|\
+stream_id : int\l\
+target_user : int\l\
+text : text\l\
+}"
+	]
+
+	edge [ label = "stream" ]
+	StreamPrivate -> Stream
+
+	edge [ label = "stream_private_target_user" ]
+	StreamPrivate -> User
+
+}
+
