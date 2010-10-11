@@ -1,0 +1,6 @@
+!!! 5
+%table
+  -@campaigns.each do |campaign|
+    %tr
+      %td
+        !=link_to campaign.name, url(:campaign, :view, campaign.id.to_s)
