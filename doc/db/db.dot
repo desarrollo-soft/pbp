@@ -31,6 +31,27 @@ name : string\l\
 	edge [ label = "master_user" ]
 	Campaign -> User
 
+	CampaignInviteUser [
+		label = "{campaign_invite_user|\
+campaign_id : int\l\
+user_id : int\l\
+}"
+	]
+
+	edge [ label = "campaign_invite_user" ]
+	CampaignInviteUser -> User
+	CampaignInviteUser -> Campaign
+
+	CampaignInviteEmail [
+		label = "{campaign_invite_email|\
+campaign_id : int\l\
+email : string\l\
+}"
+	]
+
+	edge [ label = "campaign_invite_email" ]
+	CampaignInviteEmail -> Campaign
+
 	Character [
 		label = "{character|\
 campaign_id : int\l\
