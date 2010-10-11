@@ -8,14 +8,28 @@ class Campaign
 
   belongs_to :master_user , 'User', :key => true
 
+  def initialize
+    @errors = []
+  end
+
   def inviteUser user
     if user == nil
-      return
+      errors.push "Invalid user" #TODO: i18n
+      return false
     end
     invitation = CampaignInviteUser.new
     invitation.campaign_id = self[:id]
     invitation.user_id = user[:id]
-    invitation.save
+    if invitation.save
+      return true
+    else
+      invitation.errors.each do |e|
+        e.each do |f|
+          @errors = errors.push f
+        end
+      end
+      return false
+    end
   end
 
 
@@ -32,6 +46,7 @@ class Campaign
     user = User.first(:email => email)
     if user == nil
       #TODO: send some mail inviting him
+      return true
     else
       inviteUser user
     end
@@ -39,5 +54,9 @@ class Campaign
 
   def inviteUsername username
     inviteUser User.first(:username => username)
+  end
+
+  def errors
+    @errors ||= []
   end
 end

@@ -1,5 +1,8 @@
 !!! 5
 %form{:action => url(:campaign, :invite, @campaign[:id]), :method => "post"}
+  -@campaign.errors.each do |e|
+    %p
+      =e
   %label{:for => "username_of_email"} Username or email
   %input{:type => "text", :name => "username_or_email", :id => "username_or_email", :autofocus => true}
   %br
