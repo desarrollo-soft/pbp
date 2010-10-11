@@ -3,4 +3,5 @@
   -@campaigns.each do |campaign|
     %tr
       %td
-        !=link_to campaign.name, url(:campaign, :view, campaign.id.to_s)
+        %a{:href => url(:campaign, :view, campaign.id.to_s)}
+          =campaign.name

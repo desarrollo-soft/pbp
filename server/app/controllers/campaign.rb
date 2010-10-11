@@ -35,6 +35,11 @@ Pbp.controllers :campaign do
     end
   end
 
+  get :list do
+    @campaigns = Campaign.all(:master_user_id => session[:user].id)
+    render 'campaign/list'
+  end
+
   get :view, :with => :id do
   end
 
