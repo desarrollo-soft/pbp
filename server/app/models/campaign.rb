@@ -6,6 +6,8 @@ class Campaign
   property :master_user_id, Integer
   property :name, String
 
+  has n, :character
+
   belongs_to :master_user , 'User', :key => true
 
   def initialize

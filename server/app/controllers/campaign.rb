@@ -36,7 +36,7 @@ Pbp.controllers :campaign do
   end
 
   get :list do
-    @campaigns = Campaign.all(:master_user_id => session[:user].id)
+    @campaigns = Campaign.all(:master_user_id => session[:user].id) + Campaign.all('character.user_id' => session[:user].id)
     render 'campaign/list'
   end
 
