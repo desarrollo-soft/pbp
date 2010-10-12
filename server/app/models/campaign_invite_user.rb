@@ -17,10 +17,13 @@ class CampaignInviteUser
     end
 
     if Campaign.count(:id => self.campaign_id, :master_user_id => self.user_id) > 0
-      return [ false, "User already playing" ] #TODO: i18n
+      return [ false, "User is already playing" ] #TODO: i18n
     end
 
-    #TODO add accepted invitations
+    if Character.count(:user_id => self.user_id, :campaign_id => self.campaign_id) > 0
+      return [false, "User is already playing" ] #TODO: i18n
+    end
+
     return true
   end
 

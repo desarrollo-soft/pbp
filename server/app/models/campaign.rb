@@ -44,7 +44,6 @@ class Campaign
   end
 
   def inviteEmail email
-    #TODO: validate email
     if !email.match /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i #TODO: avoid duplicate regex
       validation.push "Invalid email format" #TODO: i18n
       return false;
