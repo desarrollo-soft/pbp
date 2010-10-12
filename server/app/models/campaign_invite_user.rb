@@ -6,6 +6,9 @@ class CampaignInviteUser
   property :campaign_id, Integer
   property :user_id, Integer
 
+  belongs_to :user
+  belongs_to :campaign
+
   validates_with_method :user_in_campaign
 
   def user_in_campaign

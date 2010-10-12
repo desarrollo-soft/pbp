@@ -8,6 +8,8 @@
     %br
     != link_to 'My Campaigns', url(:campaign, :list)
     %br
+    != link_to 'Pending Invites', url(:invite, :pending)
+    %br
     != link_to 'Logout', url(:authentication, :logout)
   -else
     %br
