@@ -1,7 +1,12 @@
 !!! 5
-%table
-  -@campaigns.each do |campaign|
-    %tr
-      %td
-        %a{:href => url(:campaign, :view, campaign.id.to_s)}
-          =campaign.name
+!=link_to 'Back', url(:home, :index)
+-if @campaigns.count > 0
+  %table
+    -@campaigns.each do |campaign|
+      %tr
+        %td
+          %a{:href => url(:campaign, :view, campaign.id.to_s)}
+            =campaign.name
+-else
+  %p You have no active campaign
+  -#TODO: i18n

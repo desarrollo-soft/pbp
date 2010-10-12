@@ -23,4 +23,13 @@ class CampaignInviteUser
     #TODO add accepted invitations
     return true
   end
+
+  def accept
+    #TODO: add player to campaign
+    self.destroy
+  end
+
+  def reject
+    self.destroy
+  end
 end

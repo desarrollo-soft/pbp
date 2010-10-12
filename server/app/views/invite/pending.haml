@@ -1,0 +1,21 @@
+!!! 5
+!=link_to 'Back', url(:home, :index)
+-if @invites.count > 0
+  %table
+    %tr
+      %th Campaign Name
+      -#TODO: i18n
+      %th Invited by
+      -#TODO: i18n
+    -@invites.each do |i|
+      %tr
+        %td=i.campaign.name
+        %td=i.user.username
+        %td
+          != link_to 'Accept', url(:invite, :accept, i[:id])
+          -#TODO: i18n
+          != link_to 'Reject', url(:invite, :reject, i[:id])
+          -#TODO: i18n
+-else
+  %p You have no pending invites
+  -#TODO: i18n
