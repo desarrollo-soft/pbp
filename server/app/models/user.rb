@@ -15,7 +15,7 @@ class User
   validates_length_of       :new_password, :within => 4..40, :if => :password_required
   validates_confirmation_of :new_password,                   :if => :password_required
   before :save, :generate_password
-
+  after :save, :verify_invites
 
   # property <name>, <type>
   property :id, Serial
@@ -24,8 +24,8 @@ class User
   property :email, String
 
   # temp unhashed password
-  property :new_password, String
-  property :new_password_confirmation, String
+  attr_accessor :new_password
+  attr_accessor :new_password_confirmation
 
   def self.authenticate(username, password)
     hashed_password = Digest::SHA1.hexdigest(password)
@@ -33,10 +33,21 @@ class User
     account && account.password == hashed_password ? account : nil
   end
 
+  def verify_invites
+    CampaignInviteEmail.all(:email => self.email) do |i|
+      invite = CampaignInviteUser.new
+      invite.user_id = self[:id]
+      invite.campaign_id = i.campaign_id
+      if invite.save
+        i.destroy
+      end
+    end
+  end
+
   private
     def generate_password
       return if self.new_password.blank?
-      self.password = Digest::SHA1.hexdigest(self.new_password) if new_record?
+      self.password = Digest::SHA1.hexdigest(self.new_password)
       self.new_password = nil
       self.new_password_confirmation = nil
     end
