@@ -7,6 +7,16 @@ class Pbp < Padrino::Application
 
   set :haml, {:format => :html5, :escape_html => true} # default Haml format is :xhtml
 
+  set :mailer_defaults, :from => '<username>@gmail.com'
+  set :delivery_method, :smtp => { 
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => '<username>@gmail.com',
+    :password             => '<password>',
+    :authentication       => :plain,
+    :enable_starttls_auto => true  
+  }
+
   ##
   # Application configuration options
   #
