@@ -1,4 +1,5 @@
 !!! 5
+!= link_to 'Back', url(:home, :index)
 %form{:action => url(:campaign, :invite, @campaign[:id]), :method => "post"}
   -@campaign.validation.each do |e|
     %p
