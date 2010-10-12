@@ -19,6 +19,12 @@ class Campaign
       validation.push "Invalid user" #TODO: i18n
       return false
     end
+
+    if self.master_user_id != user.id
+      validation.push "Can't invite if you are not the GM" #TODO: i18n
+      return false
+    end
+
     invitation = CampaignInviteUser.new
     invitation.campaign_id = self[:id]
     invitation.user_id = user[:id]

@@ -42,7 +42,7 @@ Pbp.controllers :campaign do
 
   get :invite, :with => :id do
     @campaign = Campaign.get(params[:id])
-    if (@campaign == nil)
+    if (@campaign == nil or @campaign.master_user_id != session[:user].id)
       redirect url(:campaign, :list)
     else
       render 'campaign/invite'
