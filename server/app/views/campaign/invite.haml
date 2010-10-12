@@ -1,6 +1,6 @@
 !!! 5
 %form{:action => url(:campaign, :invite, @campaign[:id]), :method => "post"}
-  -@campaign.errors.each do |e|
+  -@campaign.validation.each do |e|
     %p
       =e
   %label{:for => "username_of_email"} Username or email

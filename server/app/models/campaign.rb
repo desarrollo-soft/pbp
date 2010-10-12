@@ -9,12 +9,12 @@ class Campaign
   belongs_to :master_user , 'User', :key => true
 
   def initialize
-    @errors = []
+    @validation = []
   end
 
   def inviteUser user
     if user == nil
-      errors.push "Invalid user" #TODO: i18n
+      validation.push "Invalid user" #TODO: i18n
       return false
     end
     invitation = CampaignInviteUser.new
@@ -25,7 +25,7 @@ class Campaign
     else
       invitation.errors.each do |e|
         e.each do |f|
-          @errors = errors.push f
+          @validation = validation.push f
         end
       end
       return false
@@ -44,7 +44,7 @@ class Campaign
   def inviteEmail email
     #TODO: validate email
     if !email.match /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i #TODO: avoid duplicate regex
-      errors.push "Invalid email format" #TODO: i18n
+      validation.push "Invalid email format" #TODO: i18n
       return false;
     end
 
@@ -66,7 +66,7 @@ class Campaign
     inviteUser User.first(:username => username)
   end
 
-  def errors
-    @errors ||= []
+  def validation
+    @validation ||= []
   end
 end

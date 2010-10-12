@@ -24,11 +24,6 @@ class CampaignInviteUser
     return true
   end
 
-  def accept
-    #TODO: add player to campaign
-    self.destroy
-  end
-
   def reject
     self.destroy
   end

@@ -63,6 +63,7 @@ Pbp.controllers :campaign do
   end
 
   get :view, :with => :id do
+    redirect url(:campaign, :list) #TODO: show something?
   end
 
   get :edit, :with => :id do

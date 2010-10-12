@@ -26,8 +26,27 @@ Pbp.controllers :invite do
 
   get :accept, :with => :id do
     @invite = CampaignInviteUser.get params[:id]
-    @invite.accept
-    redirect url(:invite, :pending)
+    if @invite == nil
+      redirect url(:home, :index)
+    else
+      render 'character/create'
+    end
+  end
+
+  post :accept, :with => :id do
+    @invite = CampaignInviteUser.get params[:id]
+    @character = Character.new
+    @character.campaign_id = @invite.campaign_id
+    @character.user_id = @invite.user_id
+    @character.name = params[:name]
+    @character.bio = params[:bio]
+    @character.stats = params[:stats]
+    if @character.save
+      @invite.destroy
+      redirect url(:campaign, :view, @invite.campaign_id)
+    else
+      render 'character/create'
+    end
   end
 
   get :reject, :with => :id do

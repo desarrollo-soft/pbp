@@ -1,0 +1,22 @@
+!!! 5
+-if @character
+  -@character.errors.each do |f|
+    -f.each do |e|
+      %p=e
+%form{:action => url(:invite, :accept, @invite[:id]), :method => :post}
+  %label{:for => 'name'} Character Name
+  -#TODO: i18n
+  %input{:type => 'text', :name => 'name', :autofocus => true}
+  -#:required => true, 
+  %br
+  %label{:for => 'bio'} Character Biography
+  -#TODO: i18n
+  %br
+  %textarea{:name => "bio"}
+  %br
+  %label{:for => 'stats'} Character Stats
+  -#TODO: i18n
+  %br
+  %textarea{:name => "stats"}
+  %br
+  %input{:type => 'submit', :value => "Create"}
