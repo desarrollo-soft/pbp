@@ -34,7 +34,7 @@ class User
   end
 
   def verify_invites
-    CampaignInviteEmail.all(:email => self.email) do |i|
+    CampaignInviteEmail.all(:email => self.email).each do |i|
       invite = CampaignInviteUser.new
       invite.user_id = self[:id]
       invite.campaign_id = i.campaign_id
