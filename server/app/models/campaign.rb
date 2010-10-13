@@ -62,7 +62,7 @@ class Campaign
       invite.email = email
       if invite.save
         #TODO: send some mail inviting him
-        #deliver(:user_notifier, :invite, "Seppo", "seppo0010@gmail.com")
+        Pbp.deliver(:user_notifier, :invite, email, email)
         return true
       else
         invite.errors.each do |e|
