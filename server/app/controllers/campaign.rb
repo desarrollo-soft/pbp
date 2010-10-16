@@ -18,15 +18,6 @@ Pbp.controllers :campaign do
   #   "Hello world!"
   # end
 
-  def protect(*args)
-    condition {
-      @campaign = Campaign.get(params[:id])
-      unless @campaign == nil
-        redirect url(:campaign, :list)
-      end
-    }
-  end
-
   get :new do
     @campaign = Campaign.new
     render 'campaign/new'
@@ -49,7 +40,13 @@ Pbp.controllers :campaign do
     render 'campaign/list'
   end
 
-  get :invite, :with => :id, :protect => true do
+  get :invite, :with => :id do
+      @campaign = Campaign.get(params[:id])
+      unless @campaign != nil
+        redirect url(:campaign, :list)
+        return
+      end
+
     if (@campaign.master_user_id != session[:user].id)
       redirect url(:campaign, :list)
     else
@@ -57,7 +54,13 @@ Pbp.controllers :campaign do
     end
   end
 
-  post :invite, :with => :id, :protect => true do
+  post :invite, :with => :id do
+      @campaign = Campaign.get(params[:id])
+      unless @campaign != nil
+        redirect url(:campaign, :list)
+        return
+      end
+
     if @campaign.inviteUsernameOrEmail params[:username_or_email]
       redirect url(:campaign, :list)
     else
@@ -65,10 +68,30 @@ Pbp.controllers :campaign do
     end
   end
 
-  get :view, :with => :id, :protect => true do
-    redirect url(:campaign, :list) #TODO: show something?
+  get :view, :with => :id do
+      @campaign = Campaign.get(params[:id])
+      unless @campaign != nil
+        redirect url(:campaign, :list)
+        return
+      end
+
+    render 'campaign/view'
   end
 
   get :edit, :with => :id do
+  end
+
+  post :post, :with => :id do
+      @campaign = Campaign.get(params[:id])
+      unless @campaign != nil
+        redirect url(:campaign, :list)
+        return
+      end
+
+    if @campaign.post(session[:user], params[:message])
+      redirect url(:campaign, :view, params[:id])
+    else
+      render 'campaign/view'
+    end
   end
 end

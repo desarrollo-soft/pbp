@@ -82,4 +82,8 @@ class Campaign
   def validation
     @validation ||= []
   end
+
+  def post user, message
+    return false
+  end
 end

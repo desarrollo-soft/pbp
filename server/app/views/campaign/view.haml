@@ -1,0 +1,5 @@
+-@campaign.id
+%form{:action => url(:campaign, :post, @campaign.id), :method => :post}
+  %textarea{:id => :message, :name => :message, :cols => 60, :rows => 20}
+  %br
+  %input{:type => :submit, :value => 'Send'}
