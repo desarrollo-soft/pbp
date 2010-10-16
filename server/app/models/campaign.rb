@@ -6,6 +6,8 @@ class Campaign
   property :master_user_id, Integer
   property :name, String
 
+  validates_presence_of     :name
+
   has n, :character
 
   belongs_to :master_user , 'User', :key => true
