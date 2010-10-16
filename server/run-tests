@@ -1,0 +1,2 @@
+#!/bin/sh
+spec --color --format specdoc spec/models/*.rb
