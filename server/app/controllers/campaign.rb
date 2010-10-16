@@ -18,6 +18,15 @@ Pbp.controllers :campaign do
   #   "Hello world!"
   # end
 
+  def protect(*args)
+    condition {
+      @campaign = Campaign.get(params[:id])
+      unless @campaign == nil
+        redirect url(:campaign, :list)
+      end
+    }
+  end
+
   get :new do
     @campaign = Campaign.new
     render 'campaign/new'
@@ -40,33 +49,26 @@ Pbp.controllers :campaign do
     render 'campaign/list'
   end
 
-  get :invite, :with => :id do
-    @campaign = Campaign.get(params[:id])
-    if (@campaign == nil or @campaign.master_user_id != session[:user].id)
+  get :invite, :with => :id, :protect => true do
+    if (@campaign.master_user_id != session[:user].id)
       redirect url(:campaign, :list)
     else
       render 'campaign/invite'
     end
   end
 
-  post :invite, :with => :id do
-    @campaign = Campaign.get(params[:id])
-    if (@campaign == nil)
+  post :invite, :with => :id, :protect => true do
+    if @campaign.inviteUsernameOrEmail params[:username_or_email]
       redirect url(:campaign, :list)
     else
-      if @campaign.inviteUsernameOrEmail params[:username_or_email]
-        redirect url(:campaign, :list)
-      else
-        render 'campaign/invite'
-      end
+      render 'campaign/invite'
     end
   end
 
-  get :view, :with => :id do
+  get :view, :with => :id, :protect => true do
     redirect url(:campaign, :list) #TODO: show something?
   end
 
   get :edit, :with => :id do
   end
-
 end
