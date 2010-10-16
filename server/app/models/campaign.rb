@@ -7,6 +7,7 @@ class Campaign
   property :name, String
 
   validates_presence_of     :name
+  validates_presence_of     :master_user_id
 
   has n, :character
 
@@ -19,11 +20,6 @@ class Campaign
   def inviteUser user
     if user == nil
       validation.push "Invalid user" #TODO: i18n
-      return false
-    end
-
-    if self.master_user_id != user.id
-      validation.push "Can't invite if you are not the GM" #TODO: i18n
       return false
     end
 
