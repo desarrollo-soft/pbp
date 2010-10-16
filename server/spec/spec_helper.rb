@@ -21,4 +21,13 @@ module UserSpecHelper
       :new_password_confirmation => "12345678"
     }
   end
+
+  def valid_user2_attributes
+    {
+      :email => "example2@example.com",
+      :username => "test2",
+      :new_password => "123456789",
+      :new_password_confirmation => "123456789"
+    }
+  end
 end
