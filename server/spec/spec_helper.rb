@@ -11,3 +11,14 @@ def app
   #   Padrino.application
   Pbp.tap { |app|  }
 end
+
+module UserSpecHelper
+  def valid_user_attributes
+    {
+      :email => "example@example.com",
+      :username => "test",
+      :new_password => "12345678",
+      :new_password_confirmation => "12345678"
+    }
+  end
+end
