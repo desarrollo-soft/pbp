@@ -20,21 +20,21 @@ class Campaign
   def inviteUser user
     if user == nil
       validation.push "Invalid user" #TODO: i18n
-      return false
+      return nil
     end
 
     invitation = CampaignInviteUser.new
     invitation.campaign_id = self[:id]
     invitation.user_id = user[:id]
     if invitation.save
-      return true
+      return invitation
     else
       invitation.errors.each do |e|
         e.each do |f|
           @validation = validation.push f
         end
       end
-      return false
+      return nil
     end
   end
 
@@ -50,7 +50,7 @@ class Campaign
   def inviteEmail email
     if !email.match /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i #TODO: avoid duplicate regex
       validation.push "Invalid email format" #TODO: i18n
-      return false;
+      return nil
     end
 
     user = User.first(:email => email)
@@ -61,14 +61,14 @@ class Campaign
       if invite.save
         #TODO: send some mail inviting him
         Pbp.deliver(:user_notifier, :invite, email, email)
-        return true
+        return invite
       else
         invite.errors.each do |e|
           e.each do |f|
             @validation = validation.push f
           end
         end
-        return false
+        return nil
       end
     else
       inviteUser user
