@@ -1,2 +1,3 @@
 #!/bin/sh
+padrino rake dm:reset -e test
 spec --color --format specdoc spec/models/*.rb
