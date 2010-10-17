@@ -5,4 +5,6 @@ class StreamNarrative
   property :id, Serial
   property :stream_id, Integer
   property :text, Text
+
+  belongs_to :stream
 end

@@ -1,0 +1,6 @@
+%tr
+  %td
+    =time_ago_in_words(stream.timestamp || Time.now) + ' ago'
+    -#TODO: i18n
+  %td=stream.user.username
+  %td=stream.stream_narrative.text

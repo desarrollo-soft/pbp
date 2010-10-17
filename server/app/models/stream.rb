@@ -7,4 +7,9 @@ class Stream
   property :user_id, Integer
   property :timestamp, Integer
   property :type, String
+
+  belongs_to :user
+  belongs_to :campaign
+
+  has 1, :stream_narrative
 end

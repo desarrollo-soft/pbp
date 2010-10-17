@@ -117,6 +117,11 @@ describe "Campaign Model" do
     destroy_campaign
   end
 
+  it 'should not include unknown users'
+  it 'should include game master'
+  it 'should include invited users'
+  it 'should include characters users'
+
   def create_campaign
     @campaign.name = 'Some lame name'
     @campaign.master_user = @user

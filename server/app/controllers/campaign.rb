@@ -70,12 +70,12 @@ Pbp.controllers :campaign do
 
   get :view, :with => :id do
     @campaign = Campaign.get(params[:id])
-    unless @campaign != nil
+    unless @campaign != nil and @campaign.includeUser session[:user]
       redirect url(:campaign, :list)
       return
     end
 
-    @characters = Character.all(:campaign_id => @campaign.id)
+    
     render 'campaign/view'
   end
 
@@ -83,11 +83,11 @@ Pbp.controllers :campaign do
   end
 
   post :post, :with => :id do
-      @campaign = Campaign.get(params[:id])
-      unless @campaign != nil
-        redirect url(:campaign, :list)
-        return
-      end
+    @campaign = Campaign.get(params[:id])
+    unless @campaign != nil and @campaign.includeUser session[:user]
+      redirect url(:campaign, :list)
+      return
+    end
 
     if @campaign.post(session[:user], params[:message])
       redirect url(:campaign, :view, params[:id])
