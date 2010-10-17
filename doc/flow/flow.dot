@@ -9,18 +9,22 @@ digraph G {
 	Home -> "Sign up"
 	Login -> "Sign up"
 	"Sign up" -> Login
-	Login -> Campaigns
-	"Sign up" -> Campaigns
-	Campaigns -> "Create Campaign"
-	"Create Campaign" -> "Invite players"
+	Login -> "Logged in Home"
+	"Sign up" -> "Logged in Home"
+	"Logged in Home" -> "Create Campaign"
+	"Logged in Home" -> "Pending invites"
+	"Pending invites" -> reject 
+	reject [shape=box]
 	"Invite players" -> Stream
-	"Create Campaign" -> "Create NPC"
 	"Create NPC" -> Stream
+	"Create Campaign" -> Stream
 	Stream -> "Create NPC"
-	Campaigns -> "View Campaign"
+	"Logged in Home" -> "Campaigns"
 	Stream -> "Invite players"
-	"View Campaign" -> Stream
-	"View Campaign" -> "Create Character"
+	"Campaigns" -> Stream
+	"Pending invites" -> accept
+	accept [shape=box]
+	accept -> "Create Character"
 	"Create Character" -> Stream
 	filters[shape=box]
 	author[shape=box]

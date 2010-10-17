@@ -1,5 +1,9 @@
+%a{:href => url(:campaign, :list)}Back
+%h1=@campaign.name
 -if @campaign.master_user_id == session[:user].id
   %a{:href => url(:campaign, :create_character, @campaign.id.to_s)}Create character
+  %br
+  %a{:href => url(:campaign, :invite, @campaign.id.to_s)}Invite users
 -if @campaign.characters.count > 0
   %p Characters
   %ul
