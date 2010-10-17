@@ -3,7 +3,7 @@
   -@character.errors.each do |f|
     -f.each do |e|
       %p=e
-%form{:action => url(:invite, :accept, @invite[:id]), :method => :post}
+%form{:action => @url, :method => :post}
   %label{:for => 'name'} Character Name
   -#TODO: i18n
   %input{:type => 'text', :name => 'name', :autofocus => true}

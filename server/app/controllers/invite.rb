@@ -29,6 +29,7 @@ Pbp.controllers :invite do
     if @invite == nil
       redirect url(:home, :index)
     else
+      @url = url(:invite, :accept, @invite[:id])
       render 'character/create'
     end
   end
@@ -45,6 +46,7 @@ Pbp.controllers :invite do
       @invite.destroy
       redirect url(:campaign, :view, @invite.campaign_id)
     else
+      @url = url(:invite, :accept, @invite[:id])
       render 'character/create'
     end
   end
@@ -53,5 +55,8 @@ Pbp.controllers :invite do
     @invite = CampaignInviteUser.get params[:id]
     @invite.reject
     redirect url(:invite, :pending)
+  end
+
+  get :create_character, :with => :id do
   end
 end

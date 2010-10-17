@@ -69,12 +69,13 @@ Pbp.controllers :campaign do
   end
 
   get :view, :with => :id do
-      @campaign = Campaign.get(params[:id])
-      unless @campaign != nil
-        redirect url(:campaign, :list)
-        return
-      end
+    @campaign = Campaign.get(params[:id])
+    unless @campaign != nil
+      redirect url(:campaign, :list)
+      return
+    end
 
+    @characters = Character.all(:campaign_id => @campaign.id)
     render 'campaign/view'
   end
 
@@ -92,6 +93,38 @@ Pbp.controllers :campaign do
       redirect url(:campaign, :view, params[:id])
     else
       render 'campaign/view'
+    end
+  end
+
+  get :create_character, :with => :id do
+    @campaign = Campaign.get(params[:id])
+    unless @campaign != nil and @campaign.master_user_id == session[:user].id
+      redirect url(:campaign, :list)
+      return
+    end
+
+    @url = url(:campaign, :create_character, @campaign.id.to_s)
+    render 'character/create'
+  end
+
+  post :create_character, :with => :id do
+    @campaign = Campaign.get(params[:id])
+    unless @campaign != nil and @campaign.master_user_id == session[:user].id
+      redirect url(:campaign, :list)
+      return
+    end
+
+    @character = Character.new
+    @character.campaign_id = @campaign.id
+    @character.user_id = session[:user].id
+    @character.name = params[:name]
+    @character.bio = params[:bio]
+    @character.stats = params[:stats]
+    if @character.save
+      redirect url(:campaign, :view, params[:id])
+    else
+      @url = url(:campaign, :create_character, @campaign.id.to_s) #TODO: show validation errors
+      render 'character/create'
     end
   end
 end

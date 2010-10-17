@@ -1,4 +1,14 @@
--@campaign.id
+-if @campaign.master_user_id == session[:user].id
+  %a{:href => url(:campaign, :create_character, @campaign.id.to_s)}Create character
+-if @characters.count > 0
+  %p Characters
+  %ul
+  -@characters.each do |c|
+    %li
+      =c.name
+      (
+      =c.user.username
+      )
 %form{:action => url(:campaign, :post, @campaign.id), :method => :post}
   %textarea{:id => :message, :name => :message, :cols => 60, :rows => 20}
   %br
