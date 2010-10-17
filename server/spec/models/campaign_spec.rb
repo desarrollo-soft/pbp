@@ -117,10 +117,42 @@ describe "Campaign Model" do
     destroy_campaign
   end
 
-  it 'should not include unknown users'
-  it 'should include game master'
-  it 'should include invited users'
-  it 'should include characters users'
+  it 'should not include unknown users' do
+    create_campaign
+    @campaign.includeUser(@user2).should be false
+    destroy_campaign
+  end
+
+  it 'should include game master' do
+    create_campaign
+    @campaign.includeUser(@user).should be true
+    destroy_campaign
+  end
+
+  it 'should include invited users' do
+    create_campaign
+    invite = @campaign.inviteUsernameOrEmail(@user2.username)
+    @campaign.includeUser(@user2).should be true
+    destroy_campaign
+  end
+
+  it 'should include characters users' do
+    create_campaign
+    invite = @campaign.inviteUsernameOrEmail(@user2.username)
+    invite.should_not be nil
+
+    character = Character.new
+    character.campaign = @campaign
+    character.user = @user2
+    character.name = 'Killer'
+    character.stats = 'Kill 10'
+    character.save
+
+    invite.destroy
+
+    @campaign.includeUser(@user2).should be true
+    destroy_campaign
+  end
 
   def create_campaign
     @campaign.name = 'Some lame name'
