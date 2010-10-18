@@ -86,9 +86,9 @@ describe "Campaign Model" do
     character.stats = 'Kill 10'
     character.save
 
-    invite.destroy
-    
     @campaign.inviteUsernameOrEmail(@user2.username).should be nil
+
+    invite.destroy
     destroy_campaign
   end
 
@@ -110,10 +110,9 @@ describe "Campaign Model" do
     character.name = 'Killer'
     character.stats = 'Kill 10'
     character.save
-
-    invite.destroy
     
     @campaign.inviteUsernameOrEmail(@user2.email).should be nil
+    invite.destroy
     destroy_campaign
   end
 
