@@ -66,7 +66,17 @@ describe "Campaign Model" do
     destroy_campaign
   end
 
-  it 'should add any invites after signup sent to the email address'
+  it 'should add any invites after signup sent to the email address' do #FIXME: this shouldn't be here, but we need a campaign to send the invite so... bah
+    Pbp.stub!(:deliver).and_return(true) # avoid sending mails when running test
+    create_campaign
+    @campaign.inviteUsernameOrEmail(valid_user3_attributes[:email])
+    user3 = User.new
+    user3.attributes = valid_user3_attributes
+    user3.save
+    CampaignInviteUser.count(:user_id => user3.id).should be 1
+    user3.destroy
+    destroy_campaign
+  end
 
   it 'should allow to invite usernames' do
     create_campaign
