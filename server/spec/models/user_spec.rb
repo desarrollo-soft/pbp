@@ -85,6 +85,4 @@ describe "User Model" do
     user.should be nil
     @user.destroy
   end
-
-  it "should add pending invites on signup"
 end
