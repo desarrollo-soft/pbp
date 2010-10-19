@@ -58,7 +58,14 @@ describe "Campaign Model" do
     destroy_campaign
   end
 
-  it 'should allow game master to invite email not registered and send an email'
+  it 'should allow game master to invite email not registered and send an email' do
+    Pbp.stub!(:deliver).and_return(true)
+    Pbp.should_receive(:deliver).with(:user_notifier, :invite, 'example5@example.com', 'example5@example.com').and_return(true)
+    create_campaign
+    @campaign.inviteUsernameOrEmail('example5@example.com')
+    destroy_campaign
+  end
+
   it 'should add any invites after signup sent to the email address'
 
   it 'should allow to invite usernames' do
@@ -132,6 +139,7 @@ describe "Campaign Model" do
     create_campaign
     invite = @campaign.inviteUsernameOrEmail(@user2.username)
     @campaign.includeUser(@user2).should be true
+    invite.destroy
     destroy_campaign
   end
 
@@ -150,6 +158,7 @@ describe "Campaign Model" do
     invite.destroy
 
     @campaign.includeUser(@user2).should be true
+    character.destroy
     destroy_campaign
   end
 
